@@ -19,6 +19,7 @@ function Chat({
   unreadCounts,
   sendMessage,
   sendDirectMessage,
+  sendAlertToRoom,
   createRoom,
   joinRoom,
   inviteToRoom,
@@ -108,6 +109,15 @@ const getDirectConversation = (meId, otherId) => {
           <h2 className="text-lg font-semibold text-gray-800">
             {currentRoom ? `Room: ${rooms.find((r) => r.id === currentRoom)?.name || "Chat"}` : "General Chat"}
           </h2>
+        </div>
+        {/* send alert to room button*/}
+        <div className="p-4">
+          <button
+            onClick={sendAlertToRoom}
+            className="text-sm bg-yellow-500 hover:bg-yellow-600 text-white px-2 py-1 rounded"
+          >
+            Send Alert to Room
+          </button>
         </div>
 
         <div className="flex-1 overflow-y-auto p-4">

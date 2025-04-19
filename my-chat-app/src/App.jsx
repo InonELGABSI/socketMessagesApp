@@ -19,6 +19,7 @@ function App() {
     unreadCounts,
     sendMessage,
     sendDirectMessage,
+    sendAlertToRoom,
     login,
     createRoom,
     joinRoom,
@@ -66,6 +67,7 @@ function App() {
         joinRoom={joinRoom}
         inviteToRoom={inviteToRoom}
         markAsRead={markAsRead}
+        sendAlertToRoom={sendAlertToRoom}
       />
     </div>
   )

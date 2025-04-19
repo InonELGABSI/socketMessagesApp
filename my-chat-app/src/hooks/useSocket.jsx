@@ -62,6 +62,9 @@ export function useSocket(url) {
         }))
       }
     })
+    socket.on("roomAlert", ({ message }) => {
+      alert(message)
+    });
 
     return () => { socket.disconnect() }
   }, [url]) 
@@ -72,7 +75,7 @@ export function useSocket(url) {
     if (socketRef.current && username.trim()) {
       socketRef.current.emit("login", { username });
       socketRef.current.on("loggedIn", ({ id }) => {
-        setUserId(id);
+        //setUserId(id); 
       });
     }
   }
@@ -120,6 +123,11 @@ export function useSocket(url) {
     setUnreadCounts(prev => ({ ...prev, [userId]: 0 }))
   }
 
+  function sendAlertToRoom() {
+    if (!socketRef.current || !currentRoom) return
+    socketRef.current.emit("roomAlert", { roomId: currentRoom, message: "welcome to the jungel" })
+  }
+
   return {
     isConnected,
     users,
@@ -135,6 +143,7 @@ export function useSocket(url) {
     joinRoom,
     sendMessage,
     sendDirectMessage,
+    sendAlertToRoom,
     inviteToRoom,
     respondToInvitation,
     markAsRead,
