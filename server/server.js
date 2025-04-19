@@ -129,6 +129,14 @@ socket.on('invite', ({ userId, roomId }) => {
     }
   })
 
+  socket.on('roomAlert', ({ roomId, message }) => {
+    const room = rooms.find(r => r.id === roomId)
+    if (room) {
+      //io.in(roomId).emit('roomAlert', {message: `${message} its me!`}) // to all participants including sender
+      socket.to(roomId).emit('roomAlert', {message:message}) // to all participants except sender
+    }
+  })
+
   socket.on('disconnect', () => {
     console.log(`Client disconnected: ${socket.id}`)
     users = users.filter(u => u.id !== socket.id)
