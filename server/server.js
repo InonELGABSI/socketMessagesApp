@@ -1,4 +1,3 @@
-// File: server.js
 import express from 'express'
 import http from 'http'
 import { Server } from 'socket.io'
@@ -26,11 +25,9 @@ function emitRooms() {
 io.on('connection', socket => {
   console.log(`Client connected: ${socket.id}`)
 
-  // Send current state
   socket.emit('users', users)
   socket.emit('rooms', rooms)
 
-  // LOGIN
   socket.on('login', ({ username, avatar }) => {
     const existing = users.find(u => u.id === socket.id)
     if (!existing) {
@@ -39,7 +36,6 @@ io.on('connection', socket => {
     }
   })
 
-  // CREATE ROOM
   socket.on('createRoom', ({ name }) => {
     const roomId = uuidv4()
     const room = { id: roomId, name, participants: [socket.id], messages: [] }
@@ -48,7 +44,6 @@ io.on('connection', socket => {
     emitRooms()
   })
 
-  // JOIN ROOM
   socket.on('joinRoom', ({ roomId }) => {
     const room = rooms.find(r => r.id === roomId)
     if (room && !room.participants.includes(socket.id)) {
@@ -60,7 +55,6 @@ io.on('connection', socket => {
     }
   })
 
-  // MESSAGE TO ROOM
   socket.on('message', ({ content, roomId }) => {
     const room = rooms.find(r => r.id === roomId)
     const sender = users.find(u => u.id === socket.id)
@@ -77,7 +71,6 @@ io.on('connection', socket => {
     }
   })
 
-  // DIRECT MESSAGE
   socket.on('directMessage', ({ content, recipientId }) => {
     const sender = users.find(u => u.id === socket.id)
     if (!sender) return
@@ -94,18 +87,13 @@ io.on('connection', socket => {
     socket.emit('directMessage', msg)
   })
 
-  // INVITE
-// INVITE
-// server.js
 
-// INVITE
 socket.on('invite', ({ userId, roomId }) => {
   const inviteId = uuidv4()
   const room    = rooms.find(r => r.id === roomId);
   const sender  = users.find(u => u.id === socket.id);
   if (!room || !sender) return;
 
-  // keep track of the invitation server‑side
   invitations.push({ id: inviteId, roomId, from: socket.id })
 
   // emit to the invitee, including sender info and roomName
@@ -123,7 +111,6 @@ socket.on('invite', ({ userId, roomId }) => {
 
 
 
-  // INVITATION RESPONSE
   socket.on('invitationResponse', ({ invitationId, accept }) => {
     const invIndex = invitations.findIndex(i => i.id === invitationId)
     if (invIndex !== -1) {
@@ -142,7 +129,6 @@ socket.on('invite', ({ userId, roomId }) => {
     }
   })
 
-  // DISCONNECT
   socket.on('disconnect', () => {
     console.log(`Client disconnected: ${socket.id}`)
     users = users.filter(u => u.id !== socket.id)

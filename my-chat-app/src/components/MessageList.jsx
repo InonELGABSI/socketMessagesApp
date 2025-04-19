@@ -3,16 +3,14 @@ import { useEffect, useRef } from "react";
 function MessageList({ messages, currentUserId }) {
   const messagesEndRef = useRef(null);
 
-  // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  // Group messages by sender and time
   const groupedMessages = messages.reduce((groups, message, index) => {
     const prevMessage = messages[index - 1];
 
-    // Start a new group if:
+    // Start a new group דאטךק if:
     // 1. This is the first message
     // 2. The sender changed
     // 3. More than 5 minutes passed since the last message

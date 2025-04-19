@@ -27,7 +27,6 @@ function Chat({
   const [showRoomCreator, setShowRoomCreator] = useState(false)
   const [selectedUser, setSelectedUser] = useState(null)
   const [showDirectMessage, setShowDirectMessage] = useState(false)
-// Function to get and sort direct messages
 const getDirectConversation = (meId, otherId) => {
   const incoming = directMessages[otherId] || []; // Messages from the other user
   const outgoing = (directMessages[meId] || []).filter(m => m.recipientId === otherId); // Messages sent by current user to other user
@@ -120,14 +119,12 @@ const getDirectConversation = (meId, otherId) => {
         </div>
       </div>
 
-      {/* Room creator modal */}
       {showRoomCreator && <RoomCreator onCreateRoom={createRoom} onClose={() => setShowRoomCreator(false)} />}
 
-      {/* Direct message modal */}
       {showDirectMessage && selectedUser && (
         <DirectMessageModal
           user={selectedUser}
-          messages={getDirectConversation(userId, selectedUser.id)} // Use the function to fetch messages
+          messages={getDirectConversation(userId, selectedUser.id)} 
           currentUserId={userId}
           onSendMessage={handleSendDirectMessage}
           onClose={handleCloseDirectMessage}

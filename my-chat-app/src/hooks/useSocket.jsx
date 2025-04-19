@@ -17,7 +17,6 @@ export function useSocket(url) {
     currentRoomRef.current = currentRoom
   }, [currentRoom])
 
-  // ─── Connect / Listeners ─────────────────────────────────────────────────────
   useEffect(() => {
     const socket = io(url)
     socketRef.current = socket

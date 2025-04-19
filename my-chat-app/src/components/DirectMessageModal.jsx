@@ -21,7 +21,6 @@ function DirectMessageModal({ user, messages, currentUserId, onSendMessage, onCl
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg shadow-xl flex flex-col w-full max-w-2xl h-3/4">
-        {/* Header */}
         <div className="p-4 border-b border-gray-200 flex justify-between items-center">
           <h3 className="text-lg font-semibold text-gray-800">Chat with {user.username}</h3>
           <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
@@ -68,7 +67,6 @@ function DirectMessageModal({ user, messages, currentUserId, onSendMessage, onCl
           </div>
         </div>
 
-        {/* Input */}
         <div className="p-4 border-t border-gray-200">
           <form onSubmit={handleSubmit} className="flex items-center">
             <input

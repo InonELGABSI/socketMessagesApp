@@ -4,7 +4,7 @@ import Login from "./components/Login"
 import Chat from "./components/Chat"
 import { useSocket } from "./hooks/useSocket"
 import InvitationAlert from "./components/InvitationAlert"
-import "./index.css" // For Tailwind CSS
+import "./index.css"
 
 function App() {
   const [user, setUser] = useState(null)
@@ -26,7 +26,7 @@ function App() {
     respondToInvitation,
     markAsRead,
     socket,
-  } = useSocket("http://localhost:3001") // Replace with your socket server URL
+  } = useSocket("http://localhost:3001")
 
   const handleLogin = (username) => {
     login(username)
